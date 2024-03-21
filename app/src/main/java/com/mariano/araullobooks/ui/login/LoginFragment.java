@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,12 +12,12 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.mariano.araullobooks.R;
 import com.mariano.araullobooks.databinding.FragmentLoginBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginFragment extends Fragment {
-
     private FragmentLoginBinding binding;
     private RequestQueue requestQueue;
     private static final String LOGIN_URL = "https://book-borrowing-system.000webhostapp.com/login.php";
@@ -59,6 +59,26 @@ public class LoginFragment extends Fragment {
 
                         if (success) {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+
+                            JSONArray dataArray = jsonResponse.getJSONArray("data");
+                            if (dataArray.length() > 0) {
+                                JSONObject userData = dataArray.getJSONObject(0); // Get the first object from the array
+                                String firstName = userData.getString("firstname");
+                                String lastName = userData.getString("lastname");
+                                String userPassword = userData.getString("password");
+
+                                // I want to update a TextView in another XML file and make
+                                // it show the user's First and Last Name.
+
+                                TextView firstNameTextView = getActivity().findViewById(R.id.firstNameTextView);
+                                TextView lastNameTextView = getActivity().findViewById(R.id.lastNameTextView);
+
+                                firstNameTextView.setText(firstName);
+                                lastNameTextView.setText(lastName);
+
+                            } else {
+                                Toast.makeText(requireContext(), "User data array is empty", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         }
@@ -93,6 +113,7 @@ public class LoginFragment extends Fragment {
         // Add request to the queue
         requestQueue.add(stringRequest);
     }
+
 
     @Override
     public void onDestroyView() {
