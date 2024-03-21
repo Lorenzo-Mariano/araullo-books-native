@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_books"
+        android:name="com.mariano.araullobooks.ui.books.BooksFragment"
+        android:label="Books"
+        tools:layout="@layout/fragment_books" />
+
+    <fragment
         android:id="@+id/nav_services"
         android:name="com.mariano.araullobooks.ui.services.ServicesFragment"
         android:label="@string/menu_services"
