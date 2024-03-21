@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.mariano.araullobooks.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/nav_register"
+        android:name="com.mariano.araullobooks.ui.register.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.mariano.araullobooks.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_services"
+        android:name="com.mariano.araullobooks.ui.services.ServicesFragment"
+        android:label="@string/menu_services"
+        tools:layout="@layout/fragment_services" />
+
+    <fragment
+        android:id="@+id/nav_uniform"
+        android:name="com.mariano.araullobooks.ui.uniform.UniformFragment"
+        android:label="Uniform"
+        tools:layout="@layout/fragment_uniform" />
+
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.mariano.araullobooks.ui.map.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/nav_campus"
+        android:name="com.mariano.araullobooks.ui.campus.CampusFragment"
+        android:label="Campus"
+        tools:layout="@layout/fragment_campus" />
+
+    <fragment
+        android:id="@+id/nav_scholarship"
+        android:name="com.mariano.araullobooks.ui.scholarship.ScholarshipFragment"
+        android:label="Scholarship"
+        tools:layout="@layout/fragment_scholarship" />
+
+    <fragment
+        android:id="@+id/nav_event"
+        android:name="com.mariano.araullobooks.ui.event.EventFragment"
+        android:label="Event"
+        tools:layout="@layout/fragment_event" />
+
+    <fragment
+        android:id="@+id/nav_manual"
+        android:name="com.mariano.araullobooks.ui.manual.ManualFragment"
+        android:label="Student Manual"
+        tools:layout="@layout/fragment_manual" />
+
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="com.mariano.araullobooks.ui.faq.FaqFragment"
+        android:label="FAQ"
+        tools:layout="@layout/fragment_faq" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.mariano.araullobooks.ui.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/nav_phinma"
+        android:name="com.mariano.araullobooks.ui.phinma.PhinmaFragment"
+        android:label="About PHINMA"
+        tools:layout="@layout/fragment_phinma" />
+
+    <fragment
+        android:id="@+id/nav_developers"
+        android:name="com.mariano.araullobooks.ui.developers.DevelopersFragment"
+        android:label="Developers"
+        tools:layout="@layout/fragment_developers" />
+
+    <fragment
+        android:id="@+id/nav_contacts"
+        android:name="com.mariano.araullobooks.ui.contacts.ContactsFragment"
+        android:label="Contacts"
+        tools:layout="@layout/fragment_contacts" />
+
+
+</navigation>

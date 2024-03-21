@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view"
+    >
+
+    <group  android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_menu_login"
+            android:title="Login"
+            />
+
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/ic_menu_register"
+            android:title="Register"
+            />
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/menu_home"
+            />
+
+        <item
+            android:id="@+id/nav_services"
+            android:icon="@drawable/ic_menu_services"
+            android:title="@string/menu_services"
+            />
+
+        <item
+            android:id="@+id/nav_uniform"
+            android:icon="@drawable/ic_menu_uniform"
+            android:title="Uniform"
+            />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_menu_map"
+            android:title="Map"
+            />
+        <item
+            android:id="@+id/nav_campus"
+            android:icon="@drawable/ic_menu_campus"
+            android:title="Campus"
+            />
+        <item
+            android:id="@+id/nav_scholarship"
+            android:icon="@drawable/ic_menu_scholarship"
+            android:title="Scholarship"
+            />
+        <item
+            android:id="@+id/nav_event"
+            android:icon="@drawable/ic_menu_event"
+            android:title="Event"
+            />
+        <item
+            android:id="@+id/nav_manual"
+            android:icon="@drawable/ic_menu_manual"
+            android:title="Student Manual"
+            />
+
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/ic_menu_faq"
+            android:title="FAQ"
+            />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="About"
+            />
+
+        <item
+            android:id="@+id/nav_phinma"
+            android:icon="@drawable/ic_menu_phinma"
+            android:title="About PHINMA"
+            />
+
+        <item
+            android:id="@+id/nav_developers"
+            android:icon="@drawable/ic_menu_developers"
+            android:title="Developers"
+            />
+
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/ic_menu_contact"
+            android:title="Contacts"
+            />
+    </group>
+</menu>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Know more about us - PHINMA Education"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView52"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:text="Making lives better through education"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="match_parent"
+                android:layout_height="300sp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/phinma" />
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:text="Only one out of every four Filipino students who enter first grade will finish a tertiary degree. This is the reality for many students who face financial, social, and psychological barriers to getting a college education. Without it, they have a smaller chance of uplifting themselves, their families, their communities, and the country. PHINMA Education, by intent and design, caters to those who need it the most: the underserved youth."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView56"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32sp"
+                android:text="We have built a strong track record in acquiring and turning around schools. Our “bare-bones, no-frills, brass knuckles” strategy focuses resources on fully equipping graduates with skills they need to succeed in the increasingly globalizing workplace. We work with students, fellow educators, and partners both in the Philippines and Indonesia, and the rest of the world, to provide quality, accessible education towards gainful employment."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="match_parent"
+                android:layout_height="350sp"
+                android:layout_marginBottom="16sp"
+                android:src="@drawable/happystudent" />
+
+            <TextView
+                android:id="@+id/textView57"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:text="Presently, we offer 110+ programs covering the entire education chain. We invest heavily in its teachers who deliver lessons using the Active Learning method. This is supplemented by the Student Success Program (SSP), which emphasizes the three mindsets of 'I want, I can, and I belong.' We work with industry partners to ensure the curriculum is relevant while teaching Core Work Skills that are necessary in every industry."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView58"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:text="These strategies have produced encouraging results in licensure exam passing rates and the employability of our graduates. While nine out of 10 freshmen come to us ill-equipped for college, these same students leave armed with a solid background in fields such as business, information technology, hospitality, engineering, and healthcare, among others. Since 2004, PHINMA Education has produced 122 board topnotchers and over 26 thousand professionals."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
