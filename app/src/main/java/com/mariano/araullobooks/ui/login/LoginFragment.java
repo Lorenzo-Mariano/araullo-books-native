@@ -27,7 +27,7 @@ public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
     private RequestQueue requestQueue;
-    private static final String LOGIN_URL = "https://book-borrowing-system.000webhostapp.com/register.php/login.php";
+    private static final String LOGIN_URL = "https://book-borrowing-system.000webhostapp.com/login.php";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
                         String message = jsonResponse.getString("message");
+
                         if (success) {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         } else {
