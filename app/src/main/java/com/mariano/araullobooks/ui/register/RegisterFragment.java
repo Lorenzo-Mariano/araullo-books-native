@@ -30,10 +30,7 @@ public class RegisterFragment extends Fragment {
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Initialize Volley request queue
         requestQueue = Volley.newRequestQueue(requireContext());
-
-        // Set OnClickListener for the register button
         binding.registerButton.setOnClickListener(v -> registerUser());
 
         return root;
@@ -66,11 +63,8 @@ public class RegisterFragment extends Fragment {
                             boolean success = jsonResponse.getBoolean("success");
                             String message = jsonResponse.getString("message");
                             if (success) {
-                                // Registration successful, show success message
                                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                                // Optionally, navigate to another screen or perform other actions
                             } else {
-                                // Registration failed, show error message
                                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -105,7 +99,6 @@ public class RegisterFragment extends Fragment {
         // Add request to the queue
         requestQueue.add(stringRequest);
     }
-
 
     @Override
     public void onDestroyView() {
