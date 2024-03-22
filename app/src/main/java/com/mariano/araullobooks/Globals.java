@@ -9,10 +9,10 @@ public class Globals {
 
 
     private Globals() {
+        Boolean isLoggedIn = false;
         Integer userId;
         String firstName = "";
         String lastName = "";
-        Boolean isLoggedIn = false;
     }
 
     public static synchronized Globals getInstance() {
@@ -28,6 +28,14 @@ public class Globals {
 
     public void setLoggedIn(boolean loggedIn) {
         isLoggedIn = loggedIn;
+    }
+
+    public void setUserId(int id) {
+        userId = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
     }
 
     public String getFirstName() {
