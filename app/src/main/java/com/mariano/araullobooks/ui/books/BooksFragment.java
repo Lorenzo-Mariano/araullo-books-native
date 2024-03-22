@@ -58,7 +58,7 @@ public class BooksFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         try {
                             // Create a LinearLayout to hold the TextViews
-                            LinearLayout linearLayout = binding.linearLayout; // Assuming you have a LinearLayout with id "linearLayout"
+                            LinearLayout linearLayout = binding.linearLayout;
 
                             // Iterate over each JSON object in the array
                             for (int i = 0; i < response.length(); i++) {
