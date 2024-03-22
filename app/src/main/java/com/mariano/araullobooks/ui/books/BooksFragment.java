@@ -143,7 +143,13 @@ public class BooksFragment extends Fragment {
                                                     // Define your form parameters here
                                                     Map<String, String> params = new HashMap<>();
                                                     params.put("userId", String.valueOf(globals.getUserId()));
-                                                    params.put("bookId", String.valueOf(bookObject.optInt("id")));
+                                                    params.put("bookId", String.valueOf(bookObject.optInt("book_id")));
+                                                    return params;
+                                                }
+                                                @Override
+                                                public Map<String, String> getHeaders() {
+                                                    Map<String, String> params = new HashMap<>();
+                                                    params.put("Content-Type", "application/x-www-form-urlencoded");
                                                     return params;
                                                 }
                                             };
