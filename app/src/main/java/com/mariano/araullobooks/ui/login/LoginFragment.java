@@ -66,6 +66,7 @@ public class LoginFragment extends Fragment {
                             JSONArray dataArray = jsonResponse.getJSONArray("data");
                             if (dataArray.length() > 0) {
                                 JSONObject userData = dataArray.getJSONObject(0);
+                                Integer userId = userData.getInt("user_id");
                                 String firstName = userData.getString("firstname");
                                 String lastName = userData.getString("lastname");
                                 String userPassword = userData.getString("password");
@@ -74,12 +75,14 @@ public class LoginFragment extends Fragment {
                                 TextView firstNameTextView = getActivity().findViewById(R.id.firstNameTextView);
                                 TextView lastNameTextView = getActivity().findViewById(R.id.lastNameTextView);
 
+                                Globals.getInstance().setUserId(userId);
+                                Globals.getInstance().setLoggedIn(true);
                                 Globals.getInstance().setFirstName(firstName);
                                 Globals.getInstance().setLastName(lastName);
-                                Globals.getInstance().setLoggedIn(true);
 
 
                                 firstNameTextView.setText(Globals.getInstance().getFirstName());
+//                                firstNameTextView.setText(userId.toString());
                                 lastNameTextView.setText(Globals.getInstance().getLastName());
 
                                 Navigation.findNavController(requireView())
