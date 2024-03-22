@@ -82,7 +82,6 @@ public class LoginFragment extends Fragment {
 
 
                                 firstNameTextView.setText(Globals.getInstance().getFirstName());
-//                                firstNameTextView.setText(userId.toString());
                                 lastNameTextView.setText(Globals.getInstance().getLastName());
 
                                 Navigation.findNavController(requireView())
