@@ -13,11 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.mariano.araullobooks.databinding.FragmentBooksBinding;
 
@@ -25,7 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+
+import com.mariano.araullobooks.Globals;
 
 public class BooksFragment extends Fragment {
 
@@ -50,63 +57,111 @@ public class BooksFragment extends Fragment {
     }
 
     private void fetchBooksData() {
-        // I get some sort of type error inside this method
-        // This code tries to convert the response object
-        // into a JSON but the response is the wrong format
         String url = "https://book-borrowing-system.000webhostapp.com/getAllBooks.php";
 
-        // Request a JSON response from the provided URL
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            // Create a LinearLayout to hold the TextViews and Buttons
-                            LinearLayout linearLayout = binding.linearLayout; // Assuming you have a LinearLayout with id "linearLayout"
+                            Globals globals = Globals.getInstance();
 
-                            // Iterate over each JSON object in the array
+                            LinearLayout linearLayout = binding.linearLayout; // Assuming you have a LinearLayout with id "linearLayout"
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject bookObject = response.getJSONObject(i);
 
                                 // Iterate over each attribute in the JSON object
                                 Iterator<String> keys = bookObject.keys();
+
+                                // if the user is not logged in, I want the last attribute
+                                // to have margin bottom
                                 int attributeCount = 0;
                                 while (keys.hasNext()) {
                                     String key = keys.next();
-                                    String value = bookObject.getString(key);
+                                    if (bookObject.has(key)) {
+                                        String value = bookObject.getString(key);
 
-                                    // Create a new TextView
-                                    TextView textView = new TextView(getContext());
-                                    textView.setText(value);
+                                        // Create a new TextView
+                                        TextView textView = new TextView(getContext());
+                                        textView.setText(value);
 
-                                    // Add the TextView to the LinearLayout
-                                    linearLayout.addView(textView);
+                                        // Add the TextView to the LinearLayout
+                                        linearLayout.addView(textView);
 
-                                    attributeCount++;
+                                        attributeCount++;
+
+                                        if (!globals.isLoggedIn() && !keys.hasNext()) {
+                                            // Add margin bottom to the last TextView
+                                            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) textView.getLayoutParams();
+                                            layoutParams.setMargins(0, 0, 0, 50); // Add bottom margin
+                                            textView.setLayoutParams(layoutParams);
+                                        }
+                                    }
                                 }
 
-                                // Create a new Button
-                                Button borrowButton = new Button(getContext());
-                                borrowButton.setText("Borrow");
+                                if (globals.isLoggedIn()) {
+                                    Button borrowButton = new Button(getContext());
+                                    borrowButton.setText("Borrow");
 
-                                // Set OnClickListener for the button
-                                borrowButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        // Handle borrow button click
-                                        // You can implement borrowing logic here
-                                        // For example, you can show a toast indicating the book is borrowed
-                                        Toast.makeText(getContext(), "Book borrowed: " + bookObject.optString("title"), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                    borrowButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
-                                // Add margin to the borrow button to create space between text views and button
-                                LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                buttonLayoutParams.setMargins(0, 0, 0, 50); // Add bottom margin
-                                borrowButton.setLayoutParams(buttonLayoutParams);
+                                            String url = "https://book-borrowing-system.000webhostapp.com/borrowBook.php";
 
-                                // Add the Button to the LinearLayout
-                                linearLayout.addView(borrowButton);
+                                            // Create a request to send form data to the server
+                                            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                                    new Response.Listener<String>() {
+                                                        @Override
+                                                        public void onResponse(String response) {
+                                                            // Handle the response from the server
+                                                            try {
+                                                                JSONObject jsonResponse = new JSONObject(response);
+                                                                boolean success = jsonResponse.getBoolean("success");
+                                                                String message = jsonResponse.getString("message");
+                                                                if (success) {
+                                                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                                                    // Perform any additional actions after successful borrowing
+                                                                } else {
+                                                                    Toast.makeText(getContext(), "Failed to borrow book: " + message, Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                                Toast.makeText(getContext(), "Error parsing JSON response", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    // Handle errors in making the request
+                                                    Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }) {
+                                                @Override
+                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                    // Define your form parameters here
+                                                    Map<String, String> params = new HashMap<>();
+                                                    params.put("userId", String.valueOf(globals.getUserId()));
+                                                    params.put("bookId", String.valueOf(bookObject.optInt("id")));
+                                                    return params;
+                                                }
+                                            };
+
+                                            // Add the request to the request queue
+                                            requestQueue.add(stringRequest);
+                                        }
+                                    });
+
+
+                                    // Add margin to the borrow button to create space between text views and button
+                                    LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    buttonLayoutParams.setMargins(0, 0, 0, 50); // Add bottom margin
+                                    borrowButton.setLayoutParams(buttonLayoutParams);
+
+                                    // Add the Button to the LinearLayout
+                                    linearLayout.addView(borrowButton);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
