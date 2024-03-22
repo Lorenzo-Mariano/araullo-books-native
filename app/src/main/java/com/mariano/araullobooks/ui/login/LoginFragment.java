@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,6 +24,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.mariano.araullobooks.Globals;
 
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
@@ -62,20 +65,23 @@ public class LoginFragment extends Fragment {
 
                             JSONArray dataArray = jsonResponse.getJSONArray("data");
                             if (dataArray.length() > 0) {
-                                JSONObject userData = dataArray.getJSONObject(0); // Get the first object from the array
+                                JSONObject userData = dataArray.getJSONObject(0);
                                 String firstName = userData.getString("firstname");
                                 String lastName = userData.getString("lastname");
                                 String userPassword = userData.getString("password");
 
-                                // I want to update a TextView in another XML file and make
-                                // it show the user's First and Last Name.
 
                                 TextView firstNameTextView = getActivity().findViewById(R.id.firstNameTextView);
                                 TextView lastNameTextView = getActivity().findViewById(R.id.lastNameTextView);
 
-                                firstNameTextView.setText(firstName);
-                                lastNameTextView.setText(lastName);
+                                Globals.getInstance().setFirstName(firstName);
+                                Globals.getInstance().setLastName(lastName);
 
+                                firstNameTextView.setText(Globals.getInstance().getFirstName());
+                                lastNameTextView.setText(Globals.getInstance().getLastName());
+
+                                Navigation.findNavController(requireView())
+                                        .navigate(R.id.nav_home);
                             } else {
                                 Toast.makeText(requireContext(), "User data array is empty", Toast.LENGTH_SHORT).show();
                             }
