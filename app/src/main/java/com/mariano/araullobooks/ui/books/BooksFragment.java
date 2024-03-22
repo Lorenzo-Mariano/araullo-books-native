@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,9 @@ public class BooksFragment extends Fragment {
     }
 
     private void fetchBooksData() {
+        // I get some sort of type error inside this method
+        // This code tries to convert the response object
+        // into a JSON but the response is the wrong format
         String url = "https://book-borrowing-system.000webhostapp.com/getAllBooks.php";
 
         // Request a JSON response from the provided URL
@@ -57,7 +61,7 @@ public class BooksFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            // Create a LinearLayout to hold the TextViews
+                            // Create a LinearLayout to hold the TextViews and Buttons
                             LinearLayout linearLayout = binding.linearLayout; // Assuming you have a LinearLayout with id "linearLayout"
 
                             // Iterate over each JSON object in the array
@@ -66,23 +70,48 @@ public class BooksFragment extends Fragment {
 
                                 // Iterate over each attribute in the JSON object
                                 Iterator<String> keys = bookObject.keys();
+                                int attributeCount = 0;
                                 while (keys.hasNext()) {
                                     String key = keys.next();
                                     String value = bookObject.getString(key);
 
                                     // Create a new TextView
                                     TextView textView = new TextView(getContext());
-                                    textView.setText(key + ": " + value);
+                                    textView.setText(value);
 
                                     // Add the TextView to the LinearLayout
                                     linearLayout.addView(textView);
+
+                                    attributeCount++;
                                 }
+
+                                // Create a new Button
+                                Button borrowButton = new Button(getContext());
+                                borrowButton.setText("Borrow");
+
+                                // Set OnClickListener for the button
+                                borrowButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // Handle borrow button click
+                                        // You can implement borrowing logic here
+                                        // For example, you can show a toast indicating the book is borrowed
+                                        Toast.makeText(getContext(), "Book borrowed: " + bookObject.optString("title"), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                // Add margin to the borrow button to create space between text views and button
+                                LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                buttonLayoutParams.setMargins(0, 0, 0, 50); // Add bottom margin
+                                borrowButton.setLayoutParams(buttonLayoutParams);
+
+                                // Add the Button to the LinearLayout
+                                linearLayout.addView(borrowButton);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
