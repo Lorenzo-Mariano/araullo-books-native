@@ -19,10 +19,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.mariano.araullobooks.databinding.FragmentBooksBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +31,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.mariano.araullobooks.Globals;
+import com.mariano.araullobooks.databinding.FragmentBooksBinding;
 
 public class BooksFragment extends Fragment {
 
@@ -66,7 +65,7 @@ public class BooksFragment extends Fragment {
                         try {
                             Globals globals = Globals.getInstance();
 
-                            LinearLayout linearLayout = binding.linearLayout; // Assuming you have a LinearLayout with id "linearLayout"
+                            LinearLayout linearLayout = binding.availableBooksList; // Assuming you have a LinearLayout with id "linearLayout"
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject bookObject = response.getJSONObject(i);
 
@@ -134,7 +133,6 @@ public class BooksFragment extends Fragment {
                                                     }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    // Handle errors in making the request
                                                     Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             }) {
