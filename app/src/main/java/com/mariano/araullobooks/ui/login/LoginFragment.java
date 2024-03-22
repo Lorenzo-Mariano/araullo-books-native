@@ -76,6 +76,8 @@ public class LoginFragment extends Fragment {
 
                                 Globals.getInstance().setFirstName(firstName);
                                 Globals.getInstance().setLastName(lastName);
+                                Globals.getInstance().setLoggedIn(true);
+
 
                                 firstNameTextView.setText(Globals.getInstance().getFirstName());
                                 lastNameTextView.setText(Globals.getInstance().getLastName());
